@@ -49,7 +49,7 @@ object LcService {
             .getJSONArray("stat_status_pairs")
             .map {
                 (it as JSONObject).getJSONObject("stat")
-                    .run { getInt("question_id").toString() to optString("question__article__slug") }
+                    .run { getInt("question_id").toString() to optString("question__title_slug") }
             }
             .toMap()
             .filterValues { it.isNullOrBlank().not() }

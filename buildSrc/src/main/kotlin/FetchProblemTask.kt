@@ -3,6 +3,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.options.Option
 
+@Suppress("UnstableApiUsage")
 open class FetchProblemTask : DefaultTask() {
 
     @Option(option = "url", description = "LeetCode problem url.")
@@ -16,7 +17,7 @@ open class FetchProblemTask : DefaultTask() {
     @TaskAction
     fun run() {
         runBlocking {
-            FileGenerator(problem(), project.file("./src/main/kotlin/com/bruce3x/leetcode/")).execute()
+            FileGenerator(project, problem()).execute()
         }
     }
 

@@ -65,13 +65,13 @@ import com.bruce3x.leetcode.ListNode
 
 class Solution {
     fun hasCycle(head: ListNode?): Boolean {
-        var fast: ListNode? = head?.next?.next
-        var slow: ListNode? = head?.next
+        var fast = head
+        var slow = head
 
-        while (fast != null && slow != null) {
-            if (fast === slow) return true
+        while (fast?.next != null) {
             fast = fast.next?.next
-            slow = slow.next
+            slow = slow?.next
+            if (fast === slow) return true
         }
 
         return false

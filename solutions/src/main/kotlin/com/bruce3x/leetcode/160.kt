@@ -81,4 +81,21 @@ class Solution {
 
         return null
     }
+
+    /**
+     * m 从 A 遍历到 B 尾
+     * n 从 B 遍历到 A 尾
+     *
+     * 故遍历长度相同(lenA + lenB)，如果相交，则有 m === n，否则遍历结束时 m === n === null
+     */
+    fun getIntersectionNode2(headA: ListNode?, headB: ListNode?): ListNode? {
+        var m = headA
+        var n = headB
+        while (m !== n) {
+            m = if (m == null) headB else m.next
+            n = if (n == null) headA else n.next
+        }
+
+        return m
+    }
 }

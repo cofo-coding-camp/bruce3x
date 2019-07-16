@@ -1,7 +1,7 @@
 /**
  * [138] Copy List with Random Pointer
  *
- * https://leetcode.com/problems/copy-list-with-random-pointer/description/
+ * https://leetcode-cn.com/problems/copy-list-with-random-pointer/description/
  *
  * A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null.
  *

@@ -35,7 +35,7 @@ class FileGenerator(private val project: Project, private val problem: Problem) 
 /**
  * [${problem.questionId}] ${problem.questionTitle}
  *
- * https://leetcode.com/problems/${problem.questionTitleSlug}/description/
+ * https://leetcode-cn.com/problems/${problem.questionTitleSlug}/description/
  *
 $content
  *

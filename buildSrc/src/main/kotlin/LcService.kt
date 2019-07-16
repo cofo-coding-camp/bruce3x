@@ -10,7 +10,7 @@ import org.json.JSONObject
 object LcService {
 
     private fun Request.wrapRequest(): Request {
-        return request.header("Origin", "https://leetcode.com")
+        return request.header("Origin", "https://leetcode-cn.com")
             .header(
                 "User-Agent",
                 "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
@@ -18,7 +18,7 @@ object LcService {
     }
 
     private suspend fun token(title: String): String {
-        val page = "https://leetcode.com/problems/$title/"
+        val page = "https://leetcode-cn.com/problems/$title/"
         val (_, response, _) = page.httpGet()
             .wrapRequest()
             .awaitStringResponseResult()
@@ -30,9 +30,9 @@ object LcService {
     suspend fun problem(title: String): Problem {
         val token = token(title)
 
-        return "https://leetcode.com/graphql".httpPost()
+        return "https://leetcode-cn.com/graphql".httpPost()
             .wrapRequest()
-            .header("Referer", "https://leetcode.com/problems/$title/")
+            .header("Referer", "https://leetcode-cn.com/problems/$title/")
             .header("x-csrftoken", token)
             .header("Cookie", "csrftoken=$token;")
             .jsonBody(ProblemGraphQuery(title))
@@ -42,7 +42,7 @@ object LcService {
     }
 
     suspend fun problemById(id: String): Problem {
-        val map = "https://leetcode.com/api/problems/all/".httpGet()
+        val map = "https://leetcode-cn.com/api/problems/all/".httpGet()
             .wrapRequest()
             .awaitObject(jsonDeserializer())
             .obj()

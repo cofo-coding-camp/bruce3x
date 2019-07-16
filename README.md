@@ -8,5 +8,5 @@
 or
 
 ```
-./gradlew problem --url https://leetcode.com/problems/two-sum/description/
+./gradlew problem --url https://leetcode-cn.com/problems/two-sum/description/
 ```

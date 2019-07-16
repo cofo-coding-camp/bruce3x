@@ -1,7 +1,7 @@
 /**
  * [232] Implement Queue using Stacks
  *
- * https://leetcode.com/problems/implement-queue-using-stacks/description/
+ * https://leetcode-cn.com/problems/implement-queue-using-stacks/description/
  *
  * Implement the following operations of a queue using stacks.
  *

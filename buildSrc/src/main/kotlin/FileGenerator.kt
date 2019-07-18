@@ -19,7 +19,17 @@ class FileGenerator(private val project: Project, private val problem: Problem) 
             it.write("import org.junit.Assert.*")
             it.write("\n")
             it.write("import org.junit.Test")
-            it.write("\n\n")
+            it.write("\n\n\n")
+            it.write(
+                """
+class SolutionTest {
+    @Test
+    fun test() {
+
+    }
+}
+            """.trim()
+            )
         }
     }
 

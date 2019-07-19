@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -n $1 ];then
+    echo "invalid problem!"
+else
+    git commit -m "solved leetcode:$1.kt"
+    echo
+    echo "done，"
+fi

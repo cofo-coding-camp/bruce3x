@@ -21,7 +21,7 @@ class TreeNode(val value: Int) {
             val node = queue.remove()
             nodes.add(node)
 
-            node?.run {
+            node?.takeUnless { it.left == null && it.right == null }?.run {
                 queue.add(left)
                 queue.add(right)
             }

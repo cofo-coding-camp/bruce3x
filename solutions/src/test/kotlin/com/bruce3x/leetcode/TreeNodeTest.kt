@@ -7,26 +7,26 @@ import org.junit.Test
 class TreeNodeTest {
     @Test
     fun testCreate() {
-        val root = TreeNode.create(1, 2, 3, null, null, 6, 7)
+        val root = TreeNode.create(1, 2, 3, null, 4, 5)
         assertEquals(1, root.value)
         assertEquals(2, root.left?.value)
         assertEquals(3, root.right?.value)
         assertEquals(null, root.left?.left?.value)
-        assertEquals(null, root.left?.right?.value)
-        assertEquals(6, root.right?.left?.value)
-        assertEquals(7, root.right?.right?.value)
+        assertEquals(4, root.left?.right?.value)
+        assertEquals(5, root.right?.left?.value)
+        assertEquals(null, root.right?.right?.value)
     }
 
     @Test
     fun testToString() {
         assertEquals(
-            "[1, 2, 3, 4, 5, 6, 7, null, null, null, null, null, null, null, null]",
+            "[1, 2, 3, 4, 5, 6, 7]",
             TreeNode.create(1, 2, 3, 4, 5, 6, 7).toString()
         )
 
         assertEquals(
-            "[1, 2, 3, null, null, 6, 7, null, null, null, null]",
-            TreeNode.create(1, 2, 3, null, null, 6, 7).toString()
+            "[1, 2, 3, null, 4, 5, null]",
+            TreeNode.create(1, 2, 3, null, 4, 5).toString()
         )
     }
 

@@ -4,7 +4,7 @@ package com.bruce3x.leetcode
 
 import java.util.*
 
-class TreeNode(val value: Int) {
+class TreeNode(var value: Int) {
     var left: TreeNode? = null
     var right: TreeNode? = null
 

@@ -6,4 +6,6 @@ else
     git commit -m "solved leetcode:$1.kt"
     echo
     echo "done，"
+    echo
+    echo "problem solved: "`ls -l ./solutions/src/main/kotlin/com/bruce3x/leetcode/ | grep -E '\d+\.kt' | wc -l`
 fi

@@ -1,8 +1,8 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package com.bruce3x.leetcode._1054
+package com.bruce3x.leetcode._1009
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 

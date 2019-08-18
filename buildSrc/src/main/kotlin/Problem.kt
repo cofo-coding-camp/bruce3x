@@ -1,27 +1,22 @@
-import com.github.kittinunf.fuel.core.ResponseDeserializable
-import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
 
-class Problem {
-    val questionId = ""
-    val questionTitle = ""
-    val questionTitleSlug = ""
-    val content = ""
-    val difficulty = ""
-    private val codeDefinition = ""
-    val sampleTestCase = ""
-
-    val defaultCode: String
-        get() {
-            for (item in JSONArray(codeDefinition)) {
-                val obj = (item as? JSONObject) ?: continue
-                if (obj.optString("value") == "kotlin") {
-                    return obj.optString("defaultCode")
-                }
-            }
-            return ""
-        }
+class Problem(
+    var id: String,
+    val title: String,
+    val titleSlug: String,
+    val content: String,
+    val difficulty: String,
+    codeDefinition: String,
+    val sampleTestCase: String,
+    var ac: Float = 0F
+) {
+    val defaultCode: String =
+        JSONArray(codeDefinition)
+            .mapNotNull { it as? JSONObject }
+            .mapNotNull { it.takeIf { it.optString("value") == "kotlin" }?.optString("defaultCode") }
+            .firstOrNull()
+            ?: ""
 }
 
 class ProblemGraphQuery(title: String) {
@@ -43,9 +38,3 @@ class ProblemGraphQuery(title: String) {
       """.trimIndent()
 }
 
-class ProblemDeserializer : ResponseDeserializable<Problem> {
-    override fun deserialize(content: String): Problem? {
-        val q = JSONObject(content).getJSONObject("data").getJSONObject("question").toString()
-        return Gson().fromJson(q, Problem::class.java)
-    }
-}

@@ -5,6 +5,7 @@ import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
 import com.github.kittinunf.fuel.json.jsonDeserializer
+import org.json.JSONArray
 import org.json.JSONObject
 
 object LcService {
@@ -27,7 +28,7 @@ object LcService {
             ?: throw  IllegalStateException("get token failed")
     }
 
-    suspend fun problem(title: String): Problem {
+    private suspend fun problem(frontId: String, title: String, ac: Float): Problem {
         val token = token(title)
 
         return "https://leetcode-cn.com/graphql".httpPost()
@@ -37,24 +38,49 @@ object LcService {
             .header("Cookie", "csrftoken=$token;")
             .jsonBody(ProblemGraphQuery(title))
 //            .also { println(it) }
-            .awaitObject(ProblemDeserializer())
-
+            .awaitObject(jsonDeserializer())
+            .obj()
+            .let {
+                val q = it.optJSONObject("data")?.optJSONObject("question")
+                    ?: throw IllegalArgumentException("invalid problem")
+                Problem(
+                    frontId,
+                    q.optString("questionTitle"),
+                    q.optString("questionTitleSlug"),
+                    q.optString("content"),
+                    q.optString("difficulty"),
+                    q.optString("codeDefinition"),
+                    q.optString("sampleTestCase"),
+                    ac
+                )
+            }
     }
 
-    suspend fun problemById(id: String): Problem {
-        val map = "https://leetcode-cn.com/api/problems/all/".httpGet()
+    suspend fun allProblems(): JSONArray {
+        return "https://leetcode-cn.com/api/problems/all/".httpGet()
             .wrapRequest()
             .awaitObject(jsonDeserializer())
             .obj()
             .getJSONArray("stat_status_pairs")
-            .map {
-                (it as JSONObject).getJSONObject("stat")
-                    .run { getInt("question_id").toString() to optString("question__title_slug") }
-            }
-            .toMap()
-            .filterValues { it.isNullOrBlank().not() }
+    }
 
-        return map[id]?.let { problem(it) } ?: throw IllegalArgumentException("Problem #$id not found!")
+    suspend fun problemById(id: String): Problem {
+        val (frontId, titleSlug, ac) =
+            allProblems()
+                .map {
+                    (it as JSONObject).getJSONObject("stat")
+                        .run {
+                            Triple(
+                                getInt("frontend_question_id").toString(),
+                                optString("question__title_slug"),
+                                optInt("total_acs") / 100F
+                            )
+                        }
+                }
+                .firstOrNull { it.first == id }
+                ?: throw IllegalArgumentException("Problem #$id not found!")
+
+        return problem(frontId, titleSlug, ac)
     }
 }
 

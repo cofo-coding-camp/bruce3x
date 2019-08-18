@@ -3,6 +3,17 @@ import org.gradle.api.Project
 
 class LeetCodePlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        target.task(mapOf("type" to FetchProblemTask::class.java, "group" to "leetcode"), "problem")
+        mapOf(
+            "problem" to FetchProblemTask::class,
+            "checkProblems" to CheckIdTask::class
+        ).forEach { (name, task) ->
+            target.task(
+                mapOf(
+                    "type" to task.java,
+                    "group" to "leetcode"
+                ),
+                name
+            )
+        }
     }
 }

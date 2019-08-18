@@ -11,10 +11,10 @@ class FileGenerator(private val project: Project, private val problem: Problem) 
 
     private fun testFile() {
         val dir = project.file("./src/test/kotlin/com/bruce3x/leetcode/")
-        File(dir, "${problem.questionId}.kt").writer().use {
+        File(dir, "${problem.id}.kt").writer().use {
             it.write("@file:Suppress(\"PackageDirectoryMismatch\")")
             it.write("\n\n")
-            it.write("package com.bruce3x.leetcode._${problem.questionId}")
+            it.write("package com.bruce3x.leetcode._${problem.id}")
             it.write("\n\n")
             it.write("import org.junit.Assert.*")
             it.write("\n")
@@ -41,26 +41,29 @@ class SolutionTest {
 //            .filter { it.isNotBlank() }
             .joinToString(separator = "\n") { " * $it" }
 
+        var ac = "%.1f %%".format(problem.ac)
+
         val header = """
 /**
- * [${problem.questionId}] ${problem.questionTitle}
+ * [${problem.id}] ${problem.title}
  *
- * https://leetcode-cn.com/problems/${problem.questionTitleSlug}/description/
+ * https://leetcode-cn.com/problems/${problem.titleSlug}/description/
  *
 $content
  *
  * ${"Difficulty:     ${problem.difficulty}"}
+ * ${"Acceptance:     $ac"}
  * ${"TestCase:       ${problem.sampleTestCase.replace("\n", ", ")}"}
  */
 """.trim()
 
 
-        File(dir, "${problem.questionId}.kt").writer().use {
+        File(dir, "${problem.id}.kt").writer().use {
             it.write(header)
             it.write("\n\n")
             it.write("@file:Suppress(\"PackageDirectoryMismatch\")")
             it.write("\n\n")
-            it.write("package com.bruce3x.leetcode._${problem.questionId}")
+            it.write("package com.bruce3x.leetcode._${problem.id}")
             it.write("\n\n")
             it.write(problem.defaultCode)
         }

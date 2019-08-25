@@ -35,7 +35,7 @@
  *
  *
  * Difficulty:     Hard
- * Acceptance:     5.1 %
+ * Acceptance:     40.4 %
  * TestCase:       [1,17,8]
  */
 

@@ -53,7 +53,7 @@
  * 
  *
  * Difficulty:     Easy
- * Acceptance:     32.6 %
+ * Acceptance:     56.0 %
  * TestCase:       5
  */
 

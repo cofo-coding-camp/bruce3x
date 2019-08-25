@@ -31,7 +31,7 @@
  *
  *
  * Difficulty:     Medium
- * Acceptance:     85.9 %
+ * Acceptance:     55.9 %
  * TestCase:       [[1,1,0,0,0],[1,1,0,0,0],[0,0,0,1,1],[0,0,0,1,1]]
  */
 

@@ -26,7 +26,7 @@
  *
  *
  * Difficulty:     Easy
- * Acceptance:     68.2 %
+ * Acceptance:     58.9 %
  * TestCase:       "a1b2"
  */
 

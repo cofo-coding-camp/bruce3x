@@ -73,7 +73,7 @@ object LcService {
                             Triple(
                                 getInt("frontend_question_id").toString(),
                                 optString("question__title_slug"),
-                                optInt("total_acs") / 100F
+                                runCatching { optInt("total_acs") * 100F / optInt("total_submitted") }.getOrDefault(0F)
                             )
                         }
                 }

@@ -36,6 +36,11 @@ class ListNodeTest {
     }
 
     @Test
+    fun testCreateEmpty(){
+        assertNull(ListNode.create())
+    }
+
+    @Test
     fun testEquals() {
         val node1 = ListNode.create(5, 3, 4, 2, 1)
         val node2 = ListNode.create(5, 3, 4, 2, 1)

@@ -7,18 +7,15 @@ class ListNode(var value: Int) {
     var next: ListNode? = null
 
     companion object {
-        fun create(vararg values: Int): ListNode {
-            val head = ListNode(values[0])
-            var tail = head
-            var index = 1
-            while (index < values.size) {
-                val node = ListNode(values[index])
+        fun create(vararg values: Int): ListNode? {
+            val dummy = ListNode(-1)
+            var tail = dummy
+            values.forEach {
+                val node = ListNode(it)
                 tail.next = node
                 tail = node
-                index++
             }
-
-            return head
+            return dummy.next
         }
     }
 

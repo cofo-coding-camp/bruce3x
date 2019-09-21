@@ -15,9 +15,5 @@ class SolutionTest {
             intArrayOf(3, 2, 1),
             solution.postorderTraversal(TreeNode.create(1, null, 2, 3)).toIntArray()
         )
-        assertArrayEquals(
-            intArrayOf(3, 2, 1),
-            solution.postorderTraversal2(TreeNode.create(1, null, 2, 3)).toIntArray()
-        )
     }
 }

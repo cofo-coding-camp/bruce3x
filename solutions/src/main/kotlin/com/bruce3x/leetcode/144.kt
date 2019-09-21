@@ -45,7 +45,7 @@ import java.util.*
  */
 class Solution {
     fun preorderTraversal(root: TreeNode?): List<Int> {
-        return preorderIteratively(root)
+        return preorderIteratively2(root)
     }
 
     private fun preorderRecursively(root: TreeNode?): List<Int> {
@@ -74,6 +74,20 @@ class Solution {
 
             node = s.pop()
             node = node.right
+        }
+        return r
+    }
+
+    private fun preorderIteratively2(root: TreeNode?): List<Int> {
+        if (root == null) return emptyList()
+        val r = arrayListOf<Int>()
+        val s = Stack<TreeNode>()
+        s.push(root)
+        while (s.isNotEmpty()) {
+            val node = s.pop()
+            r.add(node.value)
+            node.right?.let(s::push)
+            node.left?.let(s::push)
         }
         return r
     }

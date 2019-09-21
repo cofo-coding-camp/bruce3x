@@ -10,9 +10,9 @@
  *
  * Input: [1,null,2,3]
  * 1
- * \
- * 2
- * /
+ *  \
+ *   2
+ *  /
  * 3
  *
  * Output: [3,2,1]
@@ -22,6 +22,7 @@
  *
  *
  * Difficulty:     Hard
+ * Acceptance:     67.6 %
  * TestCase:       [1,null,2,3]
  */
 
@@ -30,7 +31,7 @@
 package com.bruce3x.leetcode._145
 
 import com.bruce3x.leetcode.TreeNode
-import java.util.LinkedList
+import java.util.*
 
 /**
  * Example:
@@ -44,31 +45,37 @@ import java.util.LinkedList
  */
 class Solution {
     fun postorderTraversal(root: TreeNode?): List<Int> {
-        val results = LinkedList<Int>()
-        dfs(root, results)
-        return results
+        return postorderIteratively_reversePreOrder(root)
     }
 
-    private fun dfs(node: TreeNode?, results: LinkedList<Int>) {
-        if (node == null) return
-        dfs(node.left, results)
-        dfs(node.right, results)
-        results.add(node.value)
+    private fun postorderRecursively(root: TreeNode?): List<Int> {
+        return arrayListOf<Int>().also { recursively(root, it) }
     }
 
-    fun postorderTraversal2(root: TreeNode?): List<Int> {
-        val stack = LinkedList<TreeNode>()
-        val results = LinkedList<Int>()
-        if (root == null) return results
-
-        stack.addLast(root)
-        while (true) {
-            val node = stack.pollLast() ?: break
-            results.addFirst(node.value)
-            node.left?.let(stack::addLast)
-            node.right?.let(stack::addLast)
+    private fun recursively(root: TreeNode?, result: ArrayList<Int>) {
+        root?.apply {
+            recursively(left, result)
+            recursively(right, result)
+            result.add(value)
         }
+    }
 
-        return results
+    /**
+     * 相当于仿前序遍历，反转结果
+     * 仿前序遍历：root->right->left
+     * 后序遍历：left->right->root
+     */
+    private fun postorderIteratively_reversePreOrder(root: TreeNode?): List<Int> {
+        if (root == null) return emptyList()
+        val r = LinkedList<Int>()
+        val s = Stack<TreeNode>()
+        s.push(root)
+        while (s.isNotEmpty()) {
+            val node = s.pop()
+            r.addFirst(node.value)
+            node.left?.let(s::push)
+            node.right?.let(s::push)
+        }
+        return r
     }
 }
